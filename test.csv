@@ -1,4 +1,4 @@
-Planet,Length of Day (hours),Distance from Sun (km),Orbital Period (years),Mass (ME),Diameter (km)
+name,Length of Day (hours),Distance from Sun (km),Orbital Period (years),Mass (ME),Diameter (km)
 Mercury,4222.6,57.9,0.2408467,0.05527,4879
 Venus,2802,108.2,0.61519726,0.815,12104
 Earth,24,149.6,1.0000174,1,12756
