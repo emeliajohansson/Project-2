@@ -49,13 +49,14 @@
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       d3.csv(
-        "https://raw.githubusercontent.com/emeliajohansson/Project-2/master/test.csv",
+        "https://raw.githubusercontent.com/emeliajohansson/IVIS-Project-2/master/2014.csv",
         function(data) {
           // Extract the list of dimensions and create a scale for each.
           x.domain(
             (dimensions = d3.keys(data[0]).filter(function(d) {
               return (
-                d != "name" &&
+                d != "Country" &&
+                d != "Continent" &&
                 (y[d] = d3.scale
                   .linear()
                   .domain(
