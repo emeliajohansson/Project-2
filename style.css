@@ -8,10 +8,10 @@ svg {
   shape-rendering: crispEdges;
 }
 
-.foreground path {
+/*.foreground path {
   fill: none;
   stroke: steelblue;
-}
+} */
 
 .brush .extent {
   fill-opacity: 0.3;

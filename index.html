@@ -1,8 +1,5 @@
 <!DOCTYPE html> <meta charset="utf-8" />
 <html>
-  <!-- Load d3.js -->
-  <script src="https://d3js.org/d3.v4.js"></script>
-
   <!-- Load color scale -->
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
@@ -25,6 +22,7 @@
     <title>Project 2</title>
   </head>
   <body>
+    <div id="my_dataviz"></div>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script>
       var margin = { top: 30, right: 10, bottom: 10, left: 10 },
@@ -41,7 +39,7 @@
         foreground;
 
       var svg = d3
-        .select("body")
+        .select("#my_dataviz")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -69,6 +67,61 @@
             }))
           );
 
+          // -1- Create a tooltip div that is hidden by default:
+          var tooltip = d3
+            .select("#my_dataviz")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("font-family", "Poppins")
+            .style("padding", "10px")
+            .style("border-radius", "5px")
+            .style("background-color", "WhiteSmoke")
+            .style("box-shadow", "10px 10px 28px 0px rgba(0,0,0,0.75)")
+            .style("position", "absolute")
+            .style("color", "black");
+
+          // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
+          var showTooltip = function(d) {
+            tooltip.transition().duration(200);
+            tooltip
+              .style("opacity", 1)
+              .html(
+                "Country: " +
+                  d.Country +
+                  " </br> Avg. children: " +
+                  d.NumberOfChildren +
+                  " </br> Justifiable abortion: " +
+                  d.JustifiableAbortion
+              )
+              .style("left", d3.mouse(this)[0] + 30 + "px")
+              .style("top", d3.mouse(this)[1] + 30 + "px");
+          };
+          var moveTooltip = function(d) {
+            tooltip
+              .style("left", d3.mouse(this)[0] + 30 + "px")
+              .style("top", d3.mouse(this)[1] + 30 + "px");
+          };
+          var hideTooltip = function(d) {
+            tooltip
+              .transition()
+              .duration(300)
+              .style("opacity", 0);
+          };
+
+          // What to do when one group is hovered
+          var highlight = function(d) {
+            // reduce opacity of all groups
+            d3.selectAll(".paths").style("opacity", 0.05);
+            // expect the one that is hovered
+            d3.selectAll("." + d).style("opacity", 1);
+          };
+
+          // And when it is not hovered anymore
+          var noHighlight = function(d) {
+            d3.selectAll(".path").style("opacity", 1);
+          };
+
           // Add grey background lines for context.
           background = svg
             .append("g")
@@ -79,15 +132,24 @@
             .append("path")
             .attr("d", path);
 
+          var color = d3.scale.category10();
+
           // Add blue foreground lines for focus.
           foreground = svg
             .append("g")
-            .attr("class", "foreground")
+            .attr("class", "foreground paths")
             .selectAll("path")
             .data(data)
             .enter()
             .append("path")
-            .attr("d", path);
+            .attr("d", path)
+            .style("fill", "none")
+            .style("stroke", function(d, i) {
+              return color(i);
+            })
+            .on("mouseover", showTooltip)
+            .on("mousemove", moveTooltip)
+            .on("mouseleave", hideTooltip);
 
           // Add a group element for each dimension.
           var g = svg
