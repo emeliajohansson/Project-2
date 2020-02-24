@@ -1,9 +1,29 @@
-body{
+body {
   font-family: Poppins;
 }
 
 svg {
   font: 10px sans-serif;
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 50px;
+}
+
+select {
+  padding: 6px 12px;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  border-radius: 5px;
+}
+
+option {
+  padding: 6px 12px;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  border-radius: 5px;
 }
 
 .background path {
@@ -17,9 +37,8 @@ svg {
   fill: none;
   stroke: steelblue;
 } */
-
-form{
-margin: 16px 32px;
+form {
+  margin: 16px 32px;
 }
 
 ul {
@@ -34,24 +53,28 @@ li {
   padding: 0px 20px;
 }
 
-.continents{
+.continents {
   margin: 16px 70px;
   display: none;
 }
 
-.America{
+i {
+  font-size: 14px;
+}
+
+.America {
   color: rgb(31, 119, 180);
 }
 
-.Europe{
-  color:rgb(148, 103, 189);
+.Europe {
+  color: rgb(148, 103, 189);
 }
 
-.Asia{
+.Asia {
   color: rgb(255, 127, 14);
 }
 
-.Oceania{
+.Oceania {
   color: rgb(44, 160, 44);
 }
 
